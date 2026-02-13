@@ -75,5 +75,15 @@ a{
 
 a:hover{
     color:#16325c
-
 }
+
+.checkbox-group{
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.spacing{
+    margin-bottom: 20px;
+}
+
