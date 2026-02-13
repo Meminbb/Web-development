@@ -67,3 +67,26 @@ h2 {
     color: #555;
     line-height: 1.6;
 }
+<<<<<<< Updated upstream
+=======
+
+a{
+    color: #2f4b80;
+    padding-top: 20px;
+}
+
+a:hover{
+    color:#16325c
+
+}
+
+.checkbox-group{
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.spacing{
+    margin-bottom: 20px;
+}
+>>>>>>> Stashed changes
