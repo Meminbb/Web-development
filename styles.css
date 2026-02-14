@@ -19,6 +19,12 @@ body {
     text-align: center;
 }
 
+.title-text{
+    margin-bottom: 30px;
+    font-size: 25px;
+    text-align: center;
+}
+
 .login-card{
     background: linear-gradient(135deg, #1e3c72, #2a5298);
 }
@@ -34,6 +40,7 @@ h2 {
     padding: 12px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
+    width: 300px
 }
 
 .form-control:focus {
@@ -80,10 +87,9 @@ a:hover{
 .checkbox-group{
     display: flex;
     gap: 30px;
-    align-items: center;
+    justify-content: center;
 }
 
 .spacing{
     margin-bottom: 20px;
 }
-
