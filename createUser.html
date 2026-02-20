@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="styles.css" />
+<script src="createUser.js"></script>
 
 <body style="background: linear-gradient(135deg, #1e3c72, #2a5298);">
     <div class="title">
@@ -9,32 +10,34 @@
         
         <div class="spacing">
             <label class="form-label">Usuario</label> <br/>
-            <input class="form-control" placeholder="Ingrese su usuario" />
+            <input id="new_username" class="form-control" placeholder="Ingrese su usuario" />
         </div>
         
         <div class="spacing">
             <label class="form-label">Correo</label> <br/>
-            <input class="form-control" placeholder="Ingrese su Correo" />
+            <input id="new_email" class="form-control" placeholder="Ingrese su Correo" />
         </div>
         
         <div class="spacing">
             <label class="form-label">Contraseña</label> <br/>
-            <input type="password" class="form-control" placeholder="Ingrese su contraseña" />
+            <input id="new_password" type="password" class="form-control" placeholder="Ingrese su contraseña" />
         </div>
         
         <div class="checkbox-group spacing">
             <label>
-                <input type="checkbox" name="male"> Male
+                <input id="male" type="radio" value="Male" name="gender"> Male
             </label>
 
             <label>
-                <input type="checkbox" name="female"> Female
+                <input id="female" type="radio" value="Female" name="gender"> Female
             </label>
         </div>
 
-       <button type="button" onclick="window.location.href='./home.html'" class="btn-primary w-100">Ingresar</button>
-       <div style="padding-top: 20px;">
-       </div>
+        <button type="button" onclick="register()" class="btn-primary w-100 spacing">Ingresar</button>
+        
+        <div id="register_error" class="error-text"></div>
+       
+        <div style="padding-top: 20px;"></div>
 
     </div>
 </body>

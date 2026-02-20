@@ -40,7 +40,7 @@ h2 {
     padding: 12px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
-    width: 300px
+    width: 100%
 }
 
 .form-control:focus {
@@ -92,4 +92,23 @@ a:hover{
 
 .spacing{
     margin-bottom: 20px;
+}
+
+footer{
+    margin-top: auto;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: black;
+    padding: 10px;
+    font-size: 10px;
+}
+
+label {
+    text-align: left;
+    display: block;
+}
+
+.error-text {
+    color: red;
 }
