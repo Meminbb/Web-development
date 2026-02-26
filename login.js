@@ -14,18 +14,14 @@ function login() {
         return;
     }
 
-    // Obtener usuarios guardados
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // Buscar usuario
     const userFound = users.find(user =>
         user.username === username &&
         user.password === password
     );
 
     if (userFound) {
-
-        // Guardar sesión actual
         localStorage.setItem("currentUser", JSON.stringify(userFound));
 
         window.location.href = "home.html";

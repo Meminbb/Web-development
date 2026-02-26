@@ -112,3 +112,18 @@ label {
 .error-text {
     color: red;
 }
+
+.layout-frame {
+    width: 100%;
+    border: none;
+    display: block;
+    overflow: hidden;
+}
+
+.grid-layout {
+    margin: 0;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;        
+    grid-template-rows: 80px 1fr 60px; 
+}
