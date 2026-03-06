@@ -3,9 +3,6 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .title,
@@ -19,8 +16,24 @@ body {
     text-align: center;
 }
 
+.center{
+    display:flex; 
+    justify-content:center; 
+    align-items:center;
+}
+
+.title-text{
+    margin-bottom: 30px;
+    font-size: 25px;
+    text-align: center;
+}
+
 .login-card{
     background: linear-gradient(135deg, #1e3c72, #2a5298);
+}
+
+.cap {
+    text-transform: capitalize;
 }
 
 h2 {
@@ -34,6 +47,7 @@ h2 {
     padding: 12px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
+    width: 50%
 }
 
 .form-control:focus {
@@ -48,7 +62,7 @@ h2 {
     border-radius: 10px;
     padding: 12px;
     font-weight: 600;
-    width: 100%;
+    width: 20%;
     color: white;
     cursor: pointer;
 }
@@ -60,8 +74,11 @@ h2 {
 
 .home-card {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-
 .home-text {
     margin: 20px 0;
     color: #555;
@@ -80,10 +97,212 @@ a:hover{
 .checkbox-group{
     display: flex;
     gap: 30px;
-    align-items: center;
+    justify-content: center;
 }
 
 .spacing{
     margin-bottom: 20px;
 }
 
+footer{
+    margin-top: auto;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: black;
+    padding: 10px;
+    font-size: 10px;
+}
+
+label {
+    text-align: left;
+    display: block;
+}
+
+.error-text {
+    color: red;
+}
+
+.layout-frame {
+    width: 100%;
+    border: none;
+    display: block;
+    overflow: hidden;
+}
+
+.grid-layout {
+    margin: 0;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;        
+    grid-template-rows: 80px 1fr 60px; 
+}
+
+.info-grid{
+    display: grid;
+    grid-template-rows: auto auto auto;
+    gap: 40px;
+    padding: 40px;
+}
+
+.info-row{
+    display: grid;
+    align-items: center;
+    gap: 30px;
+}
+
+.row1{
+    grid-template-columns: 1fr 2fr;
+}
+
+.row2{
+    grid-template-columns: 2fr 1fr;
+}
+
+.row3{
+    grid-template-columns: 1fr 2fr;
+}
+
+.info-img img{
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.info-text{
+    font-size: 18px;
+}
+
+.main-header{
+    width: 100%;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.nav-bar{
+    max-width: 1200px;
+    margin: auto;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-links{
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+
+.nav-links a{
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav-links a:hover{
+    opacity: 0.8;
+}
+
+.nav-links a::after{
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: white;
+    bottom: -5px;
+    left: 0;
+    transition: 0.3s;
+}
+
+.nav-links a:hover::after{
+    width: 100%;
+}
+
+img{
+    width:150px;
+}
+
+.pokemon-result{
+    margin-top:20px;
+    background:#f1f1f1;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0px 4px 10px rgba(0,0,0,0.1);
+    display:none;
+    width: 20%;
+}
+
+.pokedex-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:20px;
+    margin:20px;
+}
+
+.pokemon-card{
+    border:1px solid #ccc;
+    padding:10px;
+    text-align:center;
+    width: 90%;
+}
+
+.pokedex-nav{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.pokemon-card img{
+    width:80px;
+}
+
+.type-filters{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    justify-content:center;
+    margin-bottom:20px;
+}
+
+.type-filters button{
+    padding:8px 16px;
+    border-radius:50px;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.type.selected{
+    outline:3px solid black;
+    transform:scale(1.05);
+}
+
+.type{
+    padding:8px 16px;
+    border-radius:50px;
+    border:none;
+    color:white;
+    font-weight:bold;
+}
+
+.normal{ background:#A8A77A; }
+.fire{ background:#EE8130; }
+.water{ background:#6390F0; }
+.electric{ background:#F7D02C; color:black; }
+.grass{ background:#7AC74C; }
+.ice{ background:#96D9D6; color:black; }
+.fighting{ background:#C22E28; }
+.poison{ background:#A33EA1; }
+.ground{ background:#E2BF65; color:black; }
+.flying{ background:#A98FF3; }
+.psychic{ background:#F95587; }
+.bug{ background:#A6B91A; }
+.rock{ background:#B6A136; }
+.ghost{ background:#735797; }
+.dragon{ background:#6F35FC; }
+.dark{ background:#705746; }
+.steel{ background:#B7B7CE; color:black; }
+.fairy{ background:#D685AD; }
