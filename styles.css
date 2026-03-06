@@ -3,9 +3,6 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .title,
@@ -67,8 +64,11 @@ h2 {
 
 .home-card {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-
 .home-text {
     margin: 20px 0;
     color: #555;
@@ -126,4 +126,53 @@ label {
     display: grid;
     grid-template-columns: 1fr;        
     grid-template-rows: 80px 1fr 60px; 
+}
+
+
+.main-header{
+    width: 100%;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.nav-bar{
+    max-width: 1200px;
+    margin: auto;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-links{
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+
+.nav-links a{
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav-links a:hover{
+    opacity: 0.8;
+}
+
+.nav-links a::after{
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: white;
+    bottom: -5px;
+    left: 0;
+    transition: 0.3s;
+}
+
+.nav-links a:hover::after{
+    width: 100%;
 }
