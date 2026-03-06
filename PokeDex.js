@@ -2,6 +2,7 @@ let allPokemon = []
 let filteredPokemon = []
 let page = 0
 const perPage = 9
+let currentCry = null
 
 async function loadAllPokemon(){
 
@@ -33,6 +34,8 @@ function renderPage(){
 
         const types = data.types.map(t => t.type.name).join(", ")
         const abilities = data.abilities.map(a => a.ability.name).join(", ")
+        const height = (data.height * 10) / 100
+        const weight = data.weight / 10
 
         const card = document.createElement("div")
         card.className = "pokemon-card"
@@ -42,8 +45,12 @@ function renderPage(){
             <img src="${data.sprites.front_default}">
             <p class="cap">Type: ${types}</p>
             <p class="cap">Ability: ${abilities}</p>
+            <p>Height: ${height} m</p>
+            <p>Weight: ${weight} kg</p>
         `
-
+        card.addEventListener("click", () => {
+            playCry(data)
+        })
         grid.appendChild(card)
     })
 }
@@ -107,6 +114,20 @@ function applyFilters(query = ""){
 
     page = 0
     renderPage()
+}
+
+function playCry(pokemon){
+    const cryUrl = pokemon.cries?.latest || pokemon.cries?.legacy
+
+    if(!cryUrl) return
+
+    if(currentCry){
+        currentCry.pause()
+        currentCry.currentTime = 0
+    }
+
+    currentCry = new Audio(cryUrl)
+    currentCry.play()
 }
 
 
