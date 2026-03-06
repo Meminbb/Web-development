@@ -138,6 +138,40 @@ label {
     grid-template-rows: 80px 1fr 60px; 
 }
 
+.info-grid{
+    display: grid;
+    grid-template-rows: auto auto auto;
+    gap: 40px;
+    padding: 40px;
+}
+
+.info-row{
+    display: grid;
+    align-items: center;
+    gap: 30px;
+}
+
+.row1{
+    grid-template-columns: 1fr 2fr;
+}
+
+.row2{
+    grid-template-columns: 2fr 1fr;
+}
+
+.row3{
+    grid-template-columns: 1fr 2fr;
+}
+
+.info-img img{
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.info-text{
+    font-size: 18px;
+}
 
 .main-header{
     width: 100%;
