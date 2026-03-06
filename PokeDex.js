@@ -36,13 +36,14 @@ function renderPage(){
         const abilities = data.abilities.map(a => a.ability.name).join(", ")
         const height = (data.height * 10) / 100
         const weight = data.weight / 10
+        const img = data.sprites.other["official-artwork"].front_default
 
         const card = document.createElement("div")
         card.className = "pokemon-card"
 
         card.innerHTML = `
             <h3 class="cap">#${data.id} ${data.name}</h3>
-            <img src="${data.sprites.front_default}">
+            <img src="${img}">
             <p class="cap">Type: ${types}</p>
             <p class="cap">Ability: ${abilities}</p>
             <p>Height: ${height} m</p>
