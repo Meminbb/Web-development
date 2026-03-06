@@ -1,0 +1,39 @@
+
+<head>
+    <title>Pokedex</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="grid-layout">
+
+    <iframe src="header.html" class="layout-frame"></iframe>
+
+    <div class="home-card">
+
+        <h2>Pokedex Search</h2>
+
+        <p class="home-text">
+            Search for any Pokémon using the PokéAPI.
+        </p>
+
+        <input type="text" id="pokemonName" class="spacing" placeholder="Enter pokemon name">
+
+        <button onclick="getPokemon()" class="btn-primary">
+            Search
+        </button>
+
+        <div class="pokemon-result">
+            <h3 class="cap" id="name"></h3>
+            <img id="sprite">
+
+            <p id="height"></p>
+            <p class="cap" id="ability"></p>
+        </div>
+
+    </div>
+
+    <iframe src="footer.html" class="layout-frame"></iframe>
+
+    <script src="PokemonScript.js"></script>
+
+</body>
