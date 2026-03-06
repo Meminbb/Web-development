@@ -32,7 +32,7 @@ function renderPage(){
 
     pokemonPage.forEach(data => {
 
-        const types = data.types.map(t => t.type.name).join(", ")
+        const types = data.types.map(t => `<span class="type ${t.type.name}">${t.type.name}</span>`).join(" ")
         const abilities = data.abilities.map(a => a.ability.name).join(", ")
         const height = (data.height * 10) / 100
         const weight = data.weight / 10
