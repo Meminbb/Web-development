@@ -22,6 +22,9 @@ function login() {
     );
 
     if (userFound) {
+
+        const token = "token_" + Date.now();
+        localStorage.setItem("authToken", token);
         localStorage.setItem("currentUser", JSON.stringify(userFound));
 
         window.location.href = "home.html";
