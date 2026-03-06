@@ -37,6 +37,7 @@ function renderPage(){
         const height = (data.height * 10) / 100
         const weight = data.weight / 10
         const img = data.sprites.other["official-artwork"].front_default
+        const moves = data.moves.slice(0,3).map(a => a.move.name).join(", ")
 
         const card = document.createElement("div")
         card.className = "pokemon-card"
@@ -48,6 +49,7 @@ function renderPage(){
             <p class="cap">Ability: ${abilities}</p>
             <p>Height: ${height} m</p>
             <p>Weight: ${weight} kg</p>
+            <p>Moves: ${moves} </p>
         `
         card.addEventListener("click", () => {
             playCry(data)
