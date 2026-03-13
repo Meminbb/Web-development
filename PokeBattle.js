@@ -85,17 +85,27 @@ function runTurn() {
 
     const movePool = attacker.moves.slice(0, 10)
     const randomMove = movePool[Math.floor(Math.random() * movePool.length)]
-    const damage = Math.floor(Math.random() * 18) + 8
 
-    battleState[defenderKey] -= damage
+    const hitChance = 0.8 // 80% de pegar, 20% de fallar
+    const didHit = Math.random() < hitChance
 
-    if (battleState[defenderKey] < 0) {
-        battleState[defenderKey] = 0
+    if (didHit) {
+        const damage = Math.floor(Math.random() * 18) + 8
+
+        battleState[defenderKey] -= damage
+
+        if (battleState[defenderKey] < 0) {
+            battleState[defenderKey] = 0
+        }
+
+        addHistoryEntry(
+            `${capitalize(attacker.name)} used ${formatMoveName(randomMove.move.name)} and dealt ${damage} damage to ${capitalize(defender.name)}.`
+        )
+    } else {
+        addHistoryEntry(
+            `${capitalize(attacker.name)} used ${formatMoveName(randomMove.move.name)}, but it missed!`
+        )
     }
-
-    addHistoryEntry(
-        `${capitalize(attacker.name)} used ${formatMoveName(randomMove.move.name)} and dealt ${damage} damage to ${capitalize(defender.name)}.`
-    )
 
     updateHpBars()
 
