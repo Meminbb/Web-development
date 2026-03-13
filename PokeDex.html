@@ -7,56 +7,64 @@
 
     <iframe src="header.html" class="layout-frame"></iframe>
 
-    <div class="home-card">
+    <div class="pokedex-page">
 
-        <h2>Pokedex</h2>
-        
-        <input 
-            type="text" 
-            id="searchBar" 
-            placeholder="Search by name or id..."
-            class="form-control"
-            oninput="searchPokemon()"
-        >
+        <div class="home-card">
 
-        <div id="typeFilters" class="type-filters" style="width: 50%;">
+            <h2>Pokedex</h2>
+            
+            <input 
+                type="text" 
+                id="searchBar" 
+                placeholder="Search by name or id..."
+                class="form-control"
+                oninput="searchPokemon()"
+            >
 
-            <button class="type normal" onclick="toggleType(this,'normal')">Normal</button>
-            <button class="type fire" onclick="toggleType(this,'fire')">Fire</button>
-            <button class="type water" onclick="toggleType(this,'water')">Water</button>
-            <button class="type electric" onclick="toggleType(this,'electric')">Electric</button>
-            <button class="type grass" onclick="toggleType(this,'grass')">Grass</button>
-            <button class="type ice" onclick="toggleType(this,'ice')">Ice</button>
-            <button class="type fighting" onclick="toggleType(this,'fighting')">Fighting</button>
-            <button class="type poison" onclick="toggleType(this,'poison')">Poison</button>
-            <button class="type ground" onclick="toggleType(this,'ground')">Ground</button>
-            <button class="type flying" onclick="toggleType(this,'flying')">Flying</button>
-            <button class="type psychic" onclick="toggleType(this,'psychic')">Psychic</button>
-            <button class="type bug" onclick="toggleType(this,'bug')">Bug</button>
-            <button class="type rock" onclick="toggleType(this,'rock')">Rock</button>
-            <button class="type ghost" onclick="toggleType(this,'ghost')">Ghost</button>
-            <button class="type dragon" onclick="toggleType(this,'dragon')">Dragon</button>
-            <button class="type dark" onclick="toggleType(this,'dark')">Dark</button>
-            <button class="type steel" onclick="toggleType(this,'steel')">Steel</button>
-            <button class="type fairy" onclick="toggleType(this,'fairy')">Fairy</button>
-
-        </div>
-
-
-        <div class="pokedex-nav">
-
-            <button onclick="previousPage()" class="btn-primary">
-                ←
-            </button>
-
-            <div id="pokedexGrid" class="pokedex-grid">
+            <div id="typeFilters" class="type-filters" style="width: 50%;">
+                <button class="type normal" onclick="toggleType(this,'normal')">Normal</button>
+                <button class="type fire" onclick="toggleType(this,'fire')">Fire</button>
+                <button class="type water" onclick="toggleType(this,'water')">Water</button>
+                <button class="type electric" onclick="toggleType(this,'electric')">Electric</button>
+                <button class="type grass" onclick="toggleType(this,'grass')">Grass</button>
+                <button class="type ice" onclick="toggleType(this,'ice')">Ice</button>
+                <button class="type fighting" onclick="toggleType(this,'fighting')">Fighting</button>
+                <button class="type poison" onclick="toggleType(this,'poison')">Poison</button>
+                <button class="type ground" onclick="toggleType(this,'ground')">Ground</button>
+                <button class="type flying" onclick="toggleType(this,'flying')">Flying</button>
+                <button class="type psychic" onclick="toggleType(this,'psychic')">Psychic</button>
+                <button class="type bug" onclick="toggleType(this,'bug')">Bug</button>
+                <button class="type rock" onclick="toggleType(this,'rock')">Rock</button>
+                <button class="type ghost" onclick="toggleType(this,'ghost')">Ghost</button>
+                <button class="type dragon" onclick="toggleType(this,'dragon')">Dragon</button>
+                <button class="type dark" onclick="toggleType(this,'dark')">Dark</button>
+                <button class="type steel" onclick="toggleType(this,'steel')">Steel</button>
+                <button class="type fairy" onclick="toggleType(this,'fairy')">Fairy</button>
             </div>
 
-            <button onclick="nextPage()" class="btn-primary">
-                →
-            </button>
+            <div class="pokedex-nav">
+                <button onclick="previousPage()" class="btn-primary">←</button>
+
+                <div id="pokedexGrid" class="pokedex-grid"></div>
+
+                <button onclick="nextPage()" class="btn-primary">→</button>
+            </div>
 
         </div>
+
+        <aside class="battle-sidebar">
+            <h3>Selected Pokémon</h3>
+
+            <div id="selectedPokemonList" class="selected-pokemon-list">
+                <p>No Pokémon selected</p>
+            </div>
+
+            <button class="btn-clear spacing" onclick="clearSelection()">Clear selection</button>
+            
+            <button id="battleBtn" class="btn-battle" onclick="startBattle()" disabled>
+                    Battle with selected Pokémon
+                </button>
+        </aside>
 
     </div>
 

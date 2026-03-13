@@ -1,0 +1,52 @@
+<head>
+    <title>Pokemon Battle</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="grid-layout">
+
+    <iframe src="header.html" class="layout-frame"></iframe>
+
+    <div class="battle-page">
+
+        <div class="battle-top">
+            <div class="fighter-card">
+                <h2 id="pokemon1Name">Pokemon 1</h2>
+                <div class="hp-bar-container">
+                    <div id="pokemon1HpBar" class="hp-bar"></div>
+                </div>
+                <p id="pokemon1HpText">HP: 100 / 100</p>
+                <img id="pokemon1Image" src="" alt="Pokemon 1" style="transform: scaleX(-1);">
+            </div>
+
+            <div class="battle-vs">
+                <h1>VS</h1>
+            </div>
+
+            <div class="fighter-card">
+                <h2 id="pokemon2Name">Pokemon 2</h2>
+                <div class="hp-bar-container">
+                    <div id="pokemon2HpBar" class="hp-bar"></div>
+                </div>
+                <p id="pokemon2HpText">HP: 100 / 100</p>
+                <img id="pokemon2Image" src="" alt="Pokemon 2">
+            </div>
+        </div>
+
+        <div class="battle-arena">
+            <h2 id="battleStatus">Battle starting...</h2>
+        </div>
+
+        <div class="battle-history-panel">
+            <h3>Battle History</h3>
+            <div id="battleHistory" class="battle-history">
+                <p>The battle is about to begin...</p>
+            </div>
+        </div>
+
+    </div>
+
+    <iframe src="footer.html" class="layout-frame"></iframe>
+
+    <script src="PokeBattle.js"></script>
+</body>
+</html>
