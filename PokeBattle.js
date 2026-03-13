@@ -86,7 +86,7 @@ function runTurn() {
     const movePool = attacker.moves.slice(0, 10)
     const randomMove = movePool[Math.floor(Math.random() * movePool.length)]
 
-    const hitChance = 0.8 // 80% de pegar, 20% de fallar
+    const hitChance = 0.8
     const didHit = Math.random() < hitChance
 
     if (didHit) {
