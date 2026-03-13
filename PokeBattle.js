@@ -6,7 +6,19 @@ let battleState = {
     p1Hp: 100,
     p2Hp: 100,
     turn: 1,
-    finished: false
+    finished: false,
+
+    p1OwnTurns: 0,
+    p2OwnTurns: 0,
+
+    p1DefenseBlock: false,
+    p2DefenseBlock: false,
+
+    p1MovePool: [],
+    p2MovePool: [],
+
+    p1SpecialPoolActive: false,
+    p2SpecialPoolActive: false
 }
 
 async function loadBattle() {
@@ -26,11 +38,76 @@ async function loadBattle() {
     pokemon1 = await res1.json()
     pokemon2 = await res2.json()
 
+    battleState.p1MovePool = getBaseMovePool(pokemon1)
+    battleState.p2MovePool = getBaseMovePool(pokemon2)
+
     renderBattle()
     addHistoryEntry(`${capitalize(pokemon1.name)} vs ${capitalize(pokemon2.name)}!`)
     document.getElementById("battleStatus").textContent = "Battle in progress..."
 
     startAutoBattle()
+}
+
+function getBaseMovePool(pokemon) {
+    return pokemon.moves.slice(0, 10).map(m => ({
+        type: "normal",
+        name: m.move.name
+    }))
+}
+
+function activateAttackSpecial(playerKey, pokemon) {
+    const normalPool = getBaseMovePool(pokemon)
+    const reducedPool = normalPool.slice(0, Math.max(0, normalPool.length - 3))
+
+    const specialMoves = [
+        { type: "special-attack", name: "special-attack" },
+        { type: "special-attack", name: "special-attack" },
+        { type: "special-attack", name: "special-attack" }
+    ]
+
+    const newPool = [...reducedPool, ...specialMoves]
+
+    if (playerKey === "p1") {
+        battleState.p1MovePool = newPool
+        battleState.p1SpecialPoolActive = true
+    } else {
+        battleState.p2MovePool = newPool
+        battleState.p2SpecialPoolActive = true
+    }
+
+    addHistoryEntry(`${capitalize(pokemon.name)} charged a SPECIAL ATTACK!`)
+}
+
+function activateDefenseSpecial(playerKey, pokemon) {
+    const normalPool = getBaseMovePool(pokemon)
+    const reducedPool = normalPool.slice(0, Math.max(0, normalPool.length - 2))
+
+    const specialMoves = [
+        { type: "special-defense", name: "special-defense" },
+        { type: "special-defense", name: "special-defense" }
+    ]
+
+    const newPool = [...reducedPool, ...specialMoves]
+
+    if (playerKey === "p1") {
+        battleState.p1MovePool = newPool
+        battleState.p1SpecialPoolActive = true
+    } else {
+        battleState.p2MovePool = newPool
+        battleState.p2SpecialPoolActive = true
+    }
+
+    addHistoryEntry(`${capitalize(pokemon.name)} prepared a SPECIAL DEFENSE!`)
+}
+
+function restoreNormalPool(playerKey, pokemon) {
+    if (playerKey === "p1") {
+        battleState.p1MovePool = getBaseMovePool(pokemon)
+        battleState.p1SpecialPoolActive = false
+    } else {
+        battleState.p2MovePool = getBaseMovePool(pokemon)
+        battleState.p2SpecialPoolActive = false
+    }
 }
 
 function renderBattle() {
@@ -79,31 +156,98 @@ function runTurn() {
         return
     }
 
-    const attacker = battleState.turn % 2 !== 0 ? pokemon1 : pokemon2
-    const defender = battleState.turn % 2 !== 0 ? pokemon2 : pokemon1
-    const defenderKey = battleState.turn % 2 !== 0 ? "p2Hp" : "p1Hp"
+    const isP1Turn = battleState.turn % 2 !== 0
+    const attacker = isP1Turn ? pokemon1 : pokemon2
+    const defender = isP1Turn ? pokemon2 : pokemon1
+    const attackerKey = isP1Turn ? "p1" : "p2"
+    const defenderKey = isP1Turn ? "p2" : "p1"
+    const defenderHpKey = isP1Turn ? "p2Hp" : "p1Hp"
 
-    const movePool = attacker.moves.slice(0, 10)
+    if (attackerKey === "p1") {
+        battleState.p1OwnTurns++
+    } else {
+        battleState.p2OwnTurns++
+    }
+
+    const ownTurns = attackerKey === "p1" ? battleState.p1OwnTurns : battleState.p2OwnTurns
+    const hasSpecialPoolActive = attackerKey === "p1"
+        ? battleState.p1SpecialPoolActive
+        : battleState.p2SpecialPoolActive
+
+    if (!hasSpecialPoolActive) {
+        if (ownTurns % 3 === 0) {
+            activateAttackSpecial(attackerKey, attacker)
+        } else if (ownTurns % 2 === 0) {
+            activateDefenseSpecial(attackerKey, attacker)
+        }
+    }
+
+    const movePool = attackerKey === "p1" ? battleState.p1MovePool : battleState.p2MovePool
     const randomMove = movePool[Math.floor(Math.random() * movePool.length)]
 
-    const hitChance = 0.8
-    const didHit = Math.random() < hitChance
+    const didHit = Math.random() < 0.8
 
-    if (didHit) {
-        const damage = Math.floor(Math.random() * 18) + 8
+    if (!didHit) {
+        addHistoryEntry(
+            `${capitalize(attacker.name)} used ${formatMoveName(randomMove.name)}, but it missed!`
+        )
 
-        battleState[defenderKey] -= damage
-
-        if (battleState[defenderKey] < 0) {
-            battleState[defenderKey] = 0
+        if (randomMove.type === "special-attack" || randomMove.type === "special-defense") {
+            restoreNormalPool(attackerKey, attacker)
         }
 
+        battleState.turn++
+        updateHpBars()
+        return
+    }
+
+    let damage = Math.floor(Math.random() * 16)
+
+    if (randomMove.type === "special-attack") {
+        damage *= 2
+    }
+
+    if (randomMove.type === "special-defense") {
+        damage = 0
+
+        if (attackerKey === "p1") {
+            battleState.p1DefenseBlock = true
+        } else {
+            battleState.p2DefenseBlock = true
+        }
+
+    }
+
+    if (defenderKey === "p1" && battleState.p1DefenseBlock) {
+        damage = Math.floor(damage / 2)
+        battleState.p1DefenseBlock = false
+        addHistoryEntry(`${capitalize(defender.name)} blocked half of the damage!`)
+    } else {battleState[defenderHpKey] -= damage}
+
+    if (defenderKey === "p2" && battleState.p2DefenseBlock) {
+        damage = Math.floor(damage / 2)
+        battleState.p2DefenseBlock = false
+        addHistoryEntry(`${capitalize(defender.name)} blocked half of the damage!`)
+    } else {battleState[defenderHpKey] -= damage}
+
+
+    if (battleState[defenderHpKey] < 0) {
+        battleState[defenderHpKey] = 0
+    }
+
+    if (randomMove.type === "special-attack") {
         addHistoryEntry(
-            `${capitalize(attacker.name)} used ${formatMoveName(randomMove.move.name)} and dealt ${damage} damage to ${capitalize(defender.name)}.`
+            `${capitalize(attacker.name)} used Special Attack and dealt ${damage} damage to ${capitalize(defender.name)}.`
         )
+        restoreNormalPool(attackerKey, attacker)
+    } else if (randomMove.type === "special-defense") {
+        addHistoryEntry(
+            `${capitalize(attacker.name)} is now protected by Special Defense!`
+        )
+        restoreNormalPool(attackerKey, attacker)
     } else {
         addHistoryEntry(
-            `${capitalize(attacker.name)} used ${formatMoveName(randomMove.move.name)}, but it missed!`
+            `${capitalize(attacker.name)} used ${formatMoveName(randomMove.name)} and dealt ${damage} damage to ${capitalize(defender.name)}.`
         )
     }
 

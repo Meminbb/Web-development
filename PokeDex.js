@@ -69,8 +69,6 @@ function renderSelectedPokemon(){
     const container = document.getElementById("selectedPokemonList")
     const battleBtn = document.getElementById("battleBtn")
 
-    if (!container) return
-
     if (selectedPokemon.length === 0) {
         container.innerHTML = `<p>No Pokémon selected</p>`
     } else {
